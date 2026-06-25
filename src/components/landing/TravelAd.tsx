@@ -5,6 +5,7 @@ import './TravelAd.css';
 
 interface TravelAdProps {
   onReserve: () => void;
+  exiting?: boolean;
 }
 
 interface ElementHotspot {
@@ -18,20 +19,13 @@ function mapHotspotToCover(video: HTMLVideoElement): ElementHotspot {
   const { landingHotspot: HOTSPOT } = MEDIA;
   const vw = video.videoWidth;
   const vh = video.videoHeight;
-
-  if (!vw || !vh) {
-    return { ...HOTSPOT };
-  }
+  if (!vw || !vh) return { ...HOTSPOT };
 
   const rect = video.getBoundingClientRect();
   const rVideo = vw / vh;
   const rElement = rect.width / rect.height;
 
-  let visX = 0;
-  let visY = 0;
-  let visW = 100;
-  let visH = 100;
-
+  let visX = 0, visY = 0, visW = 100, visH = 100;
   if (rElement > rVideo) {
     visH = (rVideo / rElement) * 100;
     visY = (100 - visH) / 2;
@@ -71,11 +65,11 @@ async function forcePlay(video: HTMLVideoElement): Promise<boolean> {
   }
 }
 
-export function TravelAd({ onReserve }: TravelAdProps) {
+export function TravelAd({ onReserve, exiting = false }: TravelAdProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const firedRef = useRef(false);
   const [hotspot, setHotspot] = useState<ElementHotspot>({ ...MEDIA.landingHotspot });
-  const [videoReady, setVideoReady] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const updateHotspot = useCallback(() => {
     const video = videoRef.current;
@@ -88,21 +82,27 @@ export function TravelAd({ onReserve }: TravelAdProps) {
     if (!video) return;
 
     setupIOSVideo(video);
+    video.src = MEDIA.landingVideo;
+    video.load();
+
+    const onPlaying = () => setIsPlaying(true);
+    const onPause = () => { if (!exiting) setIsPlaying(false); };
 
     const tryPlay = () => { forcePlay(video); };
 
     const onReady = () => {
       updateHotspot();
-      setVideoReady(true);
       tryPlay();
     };
 
-    tryPlay();
-
+    video.addEventListener('playing', onPlaying);
+    video.addEventListener('pause', onPause);
     video.addEventListener('loadedmetadata', onReady);
     video.addEventListener('loadeddata', tryPlay);
     video.addEventListener('canplay', tryPlay);
     video.addEventListener('canplaythrough', tryPlay);
+
+    tryPlay();
 
     const ro = new ResizeObserver(updateHotspot);
     ro.observe(video);
@@ -110,38 +110,40 @@ export function TravelAd({ onReserve }: TravelAdProps) {
     const onVisible = () => {
       if (document.visibilityState === 'visible') tryPlay();
     };
-    const onPageShow = () => tryPlay();
 
     document.addEventListener('visibilitychange', onVisible);
-    window.addEventListener('pageshow', onPageShow);
+    window.addEventListener('pageshow', tryPlay);
     window.addEventListener('resize', updateHotspot);
     window.addEventListener('orientationchange', updateHotspot);
 
-    // iOS: ilk toxunuşda videonu unlock et (autoplay bloklanıbsa)
     const unlock = () => { forcePlay(video); };
     document.addEventListener('touchstart', unlock, { once: true, passive: true });
 
     return () => {
+      video.removeEventListener('playing', onPlaying);
+      video.removeEventListener('pause', onPause);
       video.removeEventListener('loadedmetadata', onReady);
       video.removeEventListener('loadeddata', tryPlay);
       video.removeEventListener('canplay', tryPlay);
       video.removeEventListener('canplaythrough', tryPlay);
       ro.disconnect();
       document.removeEventListener('visibilitychange', onVisible);
-      window.removeEventListener('pageshow', onPageShow);
+      window.removeEventListener('pageshow', tryPlay);
       window.removeEventListener('resize', updateHotspot);
       window.removeEventListener('orientationchange', updateHotspot);
     };
-  }, [updateHotspot]);
+  }, [updateHotspot, exiting]);
+
+  useEffect(() => {
+    if (exiting) videoRef.current?.pause();
+  }, [exiting]);
 
   const handleReserve = useCallback(async (e: React.SyntheticEvent) => {
     e.preventDefault();
     e.stopPropagation();
 
     const video = videoRef.current;
-    if (video?.paused) {
-      await forcePlay(video);
-    }
+    if (video?.paused) await forcePlay(video);
 
     if (firedRef.current) return;
     firedRef.current = true;
@@ -156,11 +158,18 @@ export function TravelAd({ onReserve }: TravelAdProps) {
   };
 
   return (
-    <div className="travel-ad">
+    <div className={`travel-ad ${exiting ? 'travel-ad--exiting' : ''}`}>
       <div className="video-stage">
+        <img
+          className={`ad-poster ${isPlaying ? 'ad-poster--hidden' : ''}`}
+          src={MEDIA.landingPoster}
+          alt=""
+          aria-hidden="true"
+        />
+
         <video
           ref={videoRef}
-          className="ad-video"
+          className={`ad-video ${isPlaying ? 'ad-video--playing' : ''}`}
           autoPlay
           muted
           loop
@@ -169,7 +178,6 @@ export function TravelAd({ onReserve }: TravelAdProps) {
           controls={false}
           disablePictureInPicture
           disableRemotePlayback
-          src={MEDIA.landingVideo}
         />
 
         <button
@@ -179,10 +187,6 @@ export function TravelAd({ onReserve }: TravelAdProps) {
           onClick={handleReserve}
           aria-label="Rezerv edin"
         />
-
-        {!videoReady && (
-          <div className="ad-video-loader" aria-hidden="true" />
-        )}
       </div>
     </div>
   );

@@ -5,6 +5,17 @@
   background: #000;
   overflow: hidden;
   -webkit-tap-highlight-color: transparent;
+  transform-origin: center center;
+  transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 1.6s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.travel-ad--exiting {
+  transform: scale(1.12);
+  filter: blur(10px);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .video-stage {
@@ -17,6 +28,24 @@
   isolation: isolate;
 }
 
+/* Poster — iOS play düyməsini gizlədir, video oynayana qədər */
+.ad-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  z-index: 10;
+  pointer-events: none;
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ad-poster--hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
 .ad-video {
   position: absolute;
   inset: 0;
@@ -27,37 +56,26 @@
   pointer-events: none;
   display: block;
   background: #000;
-  -webkit-playsinline: true;
-}
-
-/* iOS Safari böyük play düyməsini gizlət */
-.ad-video::-webkit-media-controls {
-  display: none !important;
-}
-
-.ad-video::-webkit-media-controls-enclosure {
-  display: none !important;
-}
-
-.ad-video::-webkit-media-controls-panel {
-  display: none !important;
-}
-
-.ad-video::-webkit-media-controls-start-playback-button {
-  display: none !important;
-  -webkit-appearance: none;
   opacity: 0;
-  pointer-events: none;
+  z-index: 5;
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.ad-video--playing {
+  opacity: 1;
+}
+
+.ad-video::-webkit-media-controls,
+.ad-video::-webkit-media-controls-enclosure,
+.ad-video::-webkit-media-controls-panel,
+.ad-video::-webkit-media-controls-start-playback-button,
 .ad-video::-webkit-media-controls-overlay-play-button {
   display: none !important;
   -webkit-appearance: none;
-  opacity: 0;
-  pointer-events: none;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
-/* Görünməz hotspot — videodakı REZERV EDİN üzərində */
 .ad-hotspot {
   position: absolute;
   z-index: 30;
@@ -85,17 +103,4 @@
 .ad-hotspot:active::after {
   background: rgba(255, 255, 255, 0.04);
   border-radius: 50px;
-}
-
-.ad-video-loader {
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  background: #000;
-  pointer-events: none;
-  animation: fadeOut 0.4s ease 0.8s forwards;
-}
-
-@keyframes fadeOut {
-  to { opacity: 0; visibility: hidden; }
 }

@@ -1,6 +1,7 @@
 /** Media assets — landing video vs booking hero (ayrı şəkil) */
 export const MEDIA = {
   landingVideo: '/introvideotr.mp4',
+  landingPoster: '/landing-poster.jpg',
   bookingHeroImage: '/hero-booking.jpg',
   /** introvideotr.mp4-də REZERV EDİN düyməsinin koordinatları (video %) */
   landingHotspot: {

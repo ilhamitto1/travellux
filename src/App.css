@@ -1,0 +1,6 @@
+.booking-shell {
+  position: relative;
+  z-index: 50;
+  min-height: 100vh;
+  will-change: transform, opacity, filter;
+}
