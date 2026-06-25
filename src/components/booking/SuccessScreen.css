@@ -1,0 +1,155 @@
+.success-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  background: radial-gradient(ellipse at center, rgba(12,74,110,0.95) 0%, rgba(8,47,73,0.98) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.success-screen {
+  text-align: center;
+  color: white;
+  max-width: 520px;
+  width: 100%;
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--emerald), var(--ocean-light));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  margin: 0 auto 24px;
+  box-shadow: 0 0 60px rgba(16,185,129,0.4);
+}
+
+.success-screen h2 {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+}
+
+.success-sub {
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 32px;
+}
+
+.ticket-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  color: var(--text);
+  text-align: left;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-luxury);
+}
+
+.ticket-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, var(--ocean-deep), var(--ocean));
+  color: white;
+}
+
+.ticket-logo {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+}
+
+.ticket-class {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  background: rgba(255,255,255,0.2);
+  padding: 4px 12px;
+  border-radius: 4px;
+}
+
+.ticket-body {
+  padding: 24px;
+}
+
+.ticket-route {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.ticket-route strong {
+  display: block;
+  font-size: 1.3rem;
+  color: var(--ocean-deep);
+}
+
+.ticket-route span {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.ticket-plane {
+  font-size: 1.5rem;
+  color: var(--ocean-light);
+}
+
+.ticket-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px dashed #e2e8f0;
+}
+
+.ticket-details label {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ticket-details span {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.ticket-code {
+  color: var(--emerald) !important;
+  font-family: monospace;
+  font-size: 1rem !important;
+}
+
+.ticket-perforation {
+  height: 12px;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 8px,
+    #e2e8f0 8px,
+    #e2e8f0 16px
+  );
+}
+
+.success-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.success-close {
+  color: rgba(255,255,255,0.5);
+  font-size: 0.85rem;
+  margin-top: 8px;
+  transition: color 0.3s;
+}
+
+.success-close:hover {
+  color: white;
+}

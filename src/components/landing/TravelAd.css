@@ -1,0 +1,56 @@
+.travel-ad {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #000;
+  overflow: hidden;
+}
+
+.video-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.ad-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  pointer-events: none;
+  display: block;
+}
+
+/* Görünməz hotspot — videodakı REZERV EDİN üzərində */
+.ad-hotspot {
+  position: absolute;
+  z-index: 20;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  min-height: 48px;
+  border-radius: 50px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transform: translateZ(0);
+}
+
+/* Toxunma sahəsini böyüt (görünməz) */
+.ad-hotspot::after {
+  content: '';
+  position: absolute;
+  inset: -14px -8px;
+}
+
+.ad-hotspot:active::after {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50px;
+}
+
+/* Koordinat tənzimləmə üçün: .travel-ad.debug .ad-hotspot { background: rgba(16,185,129,0.25); outline: 2px solid #10b981; } */

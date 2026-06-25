@@ -1,0 +1,85 @@
+.cinematic-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at center, #0c4a6e 0%, #082f49 50%, #000 100%);
+  overflow: hidden;
+}
+
+.transition-ring {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid rgba(14, 165, 233, 0.6);
+  box-shadow: 0 0 60px rgba(14, 165, 233, 0.4), inset 0 0 30px rgba(16, 185, 129, 0.2);
+}
+
+.transition-text {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+}
+
+.transition-eyebrow {
+  display: block;
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #34d399;
+  margin-bottom: 16px;
+}
+
+.transition-text h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 400;
+  margin-bottom: 32px;
+}
+
+.transition-loader {
+  width: 200px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.transition-loader-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #0ea5e9, #10b981);
+  animation: loadBar 2s ease-in-out forwards;
+}
+
+@keyframes loadBar {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+.transition-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.transition-particle {
+  position: absolute;
+  bottom: -10px;
+  width: 4px;
+  height: 4px;
+  background: rgba(14, 165, 233, 0.6);
+  border-radius: 50%;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(1); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-100vh) scale(0); opacity: 0; }
+}

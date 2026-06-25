@@ -1,0 +1,117 @@
+.experiences-section {
+  background: linear-gradient(180deg, #e0f2fe 0%, var(--cream) 100%);
+}
+
+.exp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.exp-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  transition: box-shadow 0.3s;
+}
+
+.exp-card:hover {
+  box-shadow: var(--shadow-luxury);
+}
+
+.exp-media {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+}
+
+.exp-media img,
+.exp-media video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.4s;
+}
+
+.exp-media img.hidden { opacity: 0; }
+.exp-media video { opacity: 0; }
+.exp-media video.visible { opacity: 1; }
+
+.exp-category {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
+  color: white;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+}
+
+.exp-duration {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  background: rgba(255,255,255,0.9);
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.exp-body {
+  padding: 24px;
+}
+
+.exp-body h3 {
+  font-size: 1.2rem;
+  color: var(--ocean-deep);
+  margin-bottom: 8px;
+}
+
+.exp-body p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.exp-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.exp-highlights span {
+  background: #f1f5f9;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.exp-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 14px;
+}
+
+.exp-rating {
+  color: var(--emerald);
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.exp-footer strong {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  transition: color 0.3s;
+}

@@ -1,0 +1,141 @@
+.testimonials-section {
+  background: var(--ocean-deep);
+  color: white;
+}
+
+.testimonials-section .section-title {
+  color: white;
+}
+
+.testimonials-section .section-subtitle {
+  color: rgba(255,255,255,0.6);
+}
+
+.testimonial-carousel {
+  position: relative;
+  height: 280px;
+  margin-top: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.testimonial-card {
+  position: absolute;
+  width: min(600px, 90%);
+  padding: 32px;
+  background: rgba(255,255,255,0.06) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+.testimonial-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.testimonial-header img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.testimonial-header strong {
+  display: block;
+  font-size: 1rem;
+}
+
+.testimonial-header span {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.5);
+}
+
+.testimonial-rating {
+  margin-left: auto;
+  color: #fbbf24;
+  font-size: 0.85rem;
+  text-align: right;
+}
+
+.testimonial-rating span {
+  display: block;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.75rem;
+}
+
+.testimonial-text {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.85);
+  font-style: italic;
+}
+
+.verified-badge {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 0.75rem;
+  color: var(--emerald-light);
+}
+
+.testimonial-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 32px;
+}
+
+.testimonial-dots button {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  transition: all 0.3s;
+}
+
+.testimonial-dots button.active {
+  background: var(--emerald-light);
+  width: 24px;
+  border-radius: 4px;
+}
+
+.testimonial-marquee {
+  margin-top: 48px;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  gap: 32px;
+  animation: marquee 40s linear infinite;
+  width: max-content;
+}
+
+.marquee-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+  background: rgba(255,255,255,0.05);
+  padding: 12px 20px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.7);
+}
+
+.marquee-item img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+
+.marquee-item strong {
+  color: var(--emerald-light);
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
